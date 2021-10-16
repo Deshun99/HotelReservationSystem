@@ -6,11 +6,19 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 import util.enumeration.IsOccupiedEnum;
 import util.enumeration.StatusEnum;
 
@@ -26,23 +34,72 @@ public class Room implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
     
+    @Column(nullable = false)
     private Integer floor;
     
+    @Column(nullable = false)
     private Integer unit;
     
+    @Column(unique = true)
     private String roomNumber;
     
-    private Date isOccupiedTo;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date isOccupiedUntil;
     
+    @Column(nullable = false)
     private StatusEnum status;
     
+    @Column(nullable = false)
     private IsOccupiedEnum occupancy;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
+    private RoomType roomType;
+
+    
+    @OneToMany(mappedBy = "assignedRoom", cascade ={CascadeType.REMOVE})
+    private ArrayList<ReservationRecord> reservationRecords;
 
     public Room() {
     }
-    
+
+    public Room(Integer floor, Integer unit, RoomType roomType) {
+        this.floor = floor;
+        this.unit = unit;
+        this.roomNumber = floor + "-" + unit;
+        this.status = StatusEnum.AVAILABLE;
+        this.occupancy = IsOccupiedEnum.UNOCCUPIED;
+        this.roomType = roomType;
+    }
     
 
+    /**
+     * @return the roomType
+     */
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    /**
+     * @param roomType the roomType to set
+     */
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    /**
+     * @return the reservationRecords
+     */
+    public ArrayList<ReservationRecord> getReservationRecords() {
+        return reservationRecords;
+    }
+
+    /**
+     * @param reservationRecords the reservationRecords to set
+     */
+    public void setReservationRecords(ArrayList<ReservationRecord> reservationRecords) {
+        this.reservationRecords = reservationRecords;
+    }
     /**
      * @return the floor
      */
@@ -86,17 +143,17 @@ public class Room implements Serializable {
     }
 
     /**
-     * @return the isOccupiedTo
+     * @return the isOccupiedUntil
      */
-    public Date getIsOccupiedTo() {
-        return isOccupiedTo;
+    public Date getIsOccupiedUntil() {
+        return isOccupiedUntil;
     }
 
     /**
-     * @param isOccupiedTo the isOccupiedTo to set
+     * @param isOccupiedUntil the isOccupiedUntil to set
      */
-    public void setIsOccupiedTo(Date isOccupiedTo) {
-        this.isOccupiedTo = isOccupiedTo;
+    public void setIsOccupiedUntil(Date isOccupiedUntil) {
+        this.isOccupiedUntil = isOccupiedUntil;
     }
 
     /**

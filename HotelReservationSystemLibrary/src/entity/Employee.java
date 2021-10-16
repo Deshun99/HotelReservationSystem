@@ -34,6 +34,7 @@ public class Employee implements Serializable {
     @Column(length = 32, nullable = false)
     private String password;
     
+    @Column(nullable = false)
     private EmployeeAccessRightsEnum accessRights;
 
     public Long getEmployeeId() {
