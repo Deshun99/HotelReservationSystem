@@ -7,6 +7,9 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -275,4 +278,50 @@ public class ReservationRecord implements Serializable {
         return "entity.ReservationRecord[ id=" + reservationRecordId + " ]";
     }
     
+    public String getEndDateAsString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        return dateFormat.format(endDate);
+    }
+    
+    public String getStartDateAsString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        return dateFormat.format(startDate);
+    }
+    
+    public ReservationRecord() {
+        Calendar cal = Calendar.getInstance();
+        this.reservedOn = cal.getTime(); //current timestamp
+    }
+    
+    //HORS Reservation client
+    public ReservationRecord(RoomType roomType, Date startDate, Date endDate, Guest reservedByGuest) {
+        this();
+        
+        this.roomType = roomType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.guestEmail = reservedByGuest.getEmailAddress();
+        this.reservedByGuest = reservedByGuest;
+    }
+    
+    //Holiday Reservation System
+    public ReservationRecord(RoomType roomType, Date startDate, Date endDate, String guestEmail, Partner reservedByPartner) {
+        this();
+        
+        this.roomType = roomType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.guestEmail = guestEmail;
+        this.reservedByPartner = reservedByPartner;
+    }
+    
+    //Front Office Module
+    public ReservationRecord(RoomType roomType, Date startDate, Date endDate, String guestEmail) {
+        this();
+        
+        this.roomType = roomType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.guestEmail = guestEmail;
+    }
 }

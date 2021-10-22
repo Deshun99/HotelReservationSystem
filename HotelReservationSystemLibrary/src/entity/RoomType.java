@@ -231,6 +231,20 @@ public class RoomType implements Serializable {
     public void setStatus(StatusEnum status) {
         this.status = status;
     }
+    
+    public void addRoom(Room room){
+        rooms.add(room);
+        totalRooms++;
+    }
+    
+    public void removeRoom(Room room){
+        rooms.remove(room);
+        totalRooms--;
+    }
+    
+    public void addNewRoomRate(RoomRate newRoomRate) {
+        roomRate.add(newRoomRate);
+    }
 
 
     public Long getTypeId() {
@@ -239,6 +253,14 @@ public class RoomType implements Serializable {
 
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
+    }
+    
+    public void upgradeRank(){
+        ranking--;
+    }
+    
+    public void downgradeRank(){
+        ranking++;
     }
 
     @Override
@@ -264,6 +286,10 @@ public class RoomType implements Serializable {
     @Override
     public String toString() {
         return "entity.RoomType[ id=" + typeId + " ]";
+    }
+    
+    public void addNewRoomAvailability(RoomAvailability availability) {
+        this.roomAvailabilities.add(availability);
     }
     
 }

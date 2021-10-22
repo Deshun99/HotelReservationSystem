@@ -54,7 +54,7 @@ public class EmployeeEntitySessionBean implements EmployeeEntitySessionBeanRemot
         
     }
     @Override
-    public void createNewGuestRelationsOffr(String name, String username, String password){
+    public void createNewGuestRelationsOfficer(String name, String username, String password){
         
         Employee grOffr = new Employee(name, username, password, EmployeeAccessRightsEnum.GUESTRELATIONS);
         em.persist(grOffr);

@@ -137,4 +137,8 @@ public class RoomAvailability implements Serializable {
         return "entity.AvailabilityRecord[ id=" + id + " ]";
     }
     
+    public void addOneReservation(){
+        this.totalReservations++;
+    }
+    
 }

@@ -25,7 +25,7 @@ public interface EmployeeEntitySessionBeanLocal {
     
     public void createNewSalesManager(String name, String username, String password);
     
-    public void createNewGuestRelationsOffr(String name, String username, String password);
+    public void createNewGuestRelationsOfficer(String name, String username, String password);
     
     public List<Employee> retrieveAllEmployees();
     

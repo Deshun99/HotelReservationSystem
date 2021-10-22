@@ -40,7 +40,7 @@ public class DataInitSessionBean {
             employeeEntitySessionBeanLocal.createNewSysAdmin("admin", "admin", "password");
             employeeEntitySessionBeanLocal.createNewOpsManager("operationmanager", "operationmanager", "password");
             employeeEntitySessionBeanLocal.createNewSalesManager("salesmanager", "salesmanager", "password");
-            employeeEntitySessionBeanLocal.createNewGuestRelationsOffr("guestrelationsofficer", "guestrelationsofficer", "password");
+            employeeEntitySessionBeanLocal.createNewGuestRelationsOfficer("guestrelationsofficer", "guestrelationsofficer", "password");
         }
           
     }
