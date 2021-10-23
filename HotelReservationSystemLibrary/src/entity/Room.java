@@ -217,5 +217,9 @@ public class Room implements Serializable {
     public String toString() {
         return "entity.Room[ id=" + roomId + " ]";
     }
+
+    public void setIsOccupiedTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

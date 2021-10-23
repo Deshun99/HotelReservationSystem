@@ -6,6 +6,8 @@
 package horsmanangementclient;
 
 import ejb.session.stateless.EmployeeEntitySessionBeanRemote;
+import ejb.session.stateless.PartnerEntitySessionBeanRemote;
+import ejb.session.stateless.RoomEntitySessionBeanRemote;
 import entity.Employee;
 import java.util.List;
 import javax.ejb.EJB;
@@ -16,9 +18,16 @@ import javax.ejb.EJB;
  */
 public class Main {
 
+    @EJB(name = "RoomEntitySessionBeanRemote")
+    private static RoomEntitySessionBeanRemote roomEntitySessionBeanRemote;
+
+    @EJB(name = "PartnerEntitySessionBeanRemote")
+    private static PartnerEntitySessionBeanRemote partnerEntitySessionBeanRemote;
+
     @EJB(name = "EmployeeEntitySessionBeanRemote")
     private static EmployeeEntitySessionBeanRemote employeeEntitySessionBeanRemote;
-
+    
+    
     
     /**
      * @param args the command line arguments

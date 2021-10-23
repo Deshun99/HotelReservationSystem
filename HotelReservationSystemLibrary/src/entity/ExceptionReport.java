@@ -36,6 +36,13 @@ public class ExceptionReport implements Serializable {
     
     @OneToOne(optional = false)
     private ReservationRecord reservation;
+    
+    public ExceptionReport(Date exceptionDate, String errorReport, ReservationRecord reservation) {
+        this.exceptionReportDate = exceptionReportDate;
+        this.errorReport = errorReport;
+        this.reservation = reservation;
+    }
+
 
     /**
      * @return the reservation
