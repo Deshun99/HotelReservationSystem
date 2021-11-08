@@ -16,7 +16,7 @@ import util.exception.InvalidLoginCredentialException;
 
 /**
  *
- * @author wong-
+ * @author wong-jd
  */
 public class MainApp {
     private RoomEntitySessionBeanRemote roomEntitySessionBeanRemote;
