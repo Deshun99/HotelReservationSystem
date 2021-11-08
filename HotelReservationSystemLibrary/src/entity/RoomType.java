@@ -68,6 +68,7 @@ public class RoomType implements Serializable {
     }
 
     public RoomType(String typeName, String description, String bedType, Integer capacity, String amenities) {
+        this();
         this.typeName = typeName;
         this.description = description;
         this.bedType = bedType;

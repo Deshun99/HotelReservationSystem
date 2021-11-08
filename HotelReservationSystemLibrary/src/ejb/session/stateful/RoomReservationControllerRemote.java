@@ -25,20 +25,19 @@ import util.objects.ReservationTicket;
  */
 @Remote
 public interface RoomReservationControllerRemote {
-    
-    public String retrieveReservationDetails(Long resId) throws ReservationRecordNotFoundException, EntityMismatchException;
-
     public void guestLogin(String username, String password) throws InvalidLoginCredentialException;
 
     public void guestLogout();
 
+    public void setGuestEmail(String email);
+
     public ArrayList<ReservationRecord> retrieveAllReservation();
+
+    public String retrieveReservationDetails(Long resId) throws ReservationRecordNotFoundException, EntityMismatchException;
 
     public ReservationTicket searchRooms(Date startDate, Date endDate, Boolean isWalkIn);
 
     public ArrayList<ReservationRecord> reserveRoom(ReservationTicket ticket);
-
-    public void setGuestEmail(String email);
 
     public List<ReservationRecord> getReservationListByEmail(String email);
 
@@ -47,6 +46,4 @@ public interface RoomReservationControllerRemote {
     public String checkOutRoom(String roomNumber) throws UnoccupiedRoomException, ReservationRecordNotFoundException;
 
     public void assignWalkInRoom(ArrayList<ReservationRecord> reservations);
-
-    
 }

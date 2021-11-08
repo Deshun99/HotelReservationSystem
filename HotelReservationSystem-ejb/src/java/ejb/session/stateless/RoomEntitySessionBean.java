@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
@@ -51,6 +53,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
 
     public RoomEntitySessionBean() {
     }
+
 
     @Override
     public Long createNewRoomType(String typeName, String description, String bedType, Integer capacity, String amenities, int i) {
@@ -89,7 +92,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         for(int j = 0; j <= 365; j++){ //create next 365 days of availability record in advance.
             RoomAvailability avail = new RoomAvailability(date, newRoomType);
             em.persist(avail);
-            newRoomType.addNewRoomAvailability(avail);
+            newRoomType.addNewRoomAvailability(avail); 
             date = addDays(date, 1);
         }
         em.flush();
@@ -116,6 +119,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return details;
     }
     
+
     @Override
     public void updateRoomType(String typeName, String newDescription, String newBedType, Integer newCapacity, String newAmenities) throws RoomTypeNotFoundException {
         
@@ -138,6 +142,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
      * @return false if roomType disabled, true if roomType deleted
      * @throws RoomTypeNotFoundException
      */
+
     @Override
     public Boolean deleteRoomType(String typeName) throws RoomTypeNotFoundException {
         RoomType thisRoomType;
@@ -198,12 +203,13 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
             em.persist(newRoom);
             thisRoomType.addRoom(newRoom);
         } catch (RoomTypeNotFoundException roomTypeNotFoundException) {
-            eJBContext.setRollbackOnly();
             throw roomTypeNotFoundException;
+            
         }
     }
     
     //update the status and roomtype of a room
+
     @Override
     public void updateRoom(String roomNumber, String roomType, StatusEnum status) throws RoomNotFoundException, RoomTypeNotFoundException {
         try {
@@ -220,6 +226,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         }
     }
     
+
     @Override
     public Boolean deleteRoom(String roomNumber) throws RoomNotFoundException {  
         try {
@@ -239,7 +246,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
     }
 
 
-    @Override
+
     public RoomType retrieveRoomTypeByTypeName(String typeName) throws RoomTypeNotFoundException {
         Query q = em.createQuery("SELECT r FROM RoomType r WHERE r.typeName = :typename");
         q.setParameter("typename", typeName);
@@ -264,10 +271,19 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         
     }
     
+    /**
+     *
+     * @param rateName
+     * @param ratePerNight
+     * @param startDate
+     * @param endDate
+     * @param roomTypeId
+     * @throws RoomTypeNotFoundException
+     */
     @Override
     public void createNewNormalRate(String rateName, BigDecimal ratePerNight, Date startDate, Date endDate, Long roomTypeId) throws RoomTypeNotFoundException {
         RoomType roomType = em.find(RoomType.class, roomTypeId);
-        if(roomType == null){
+        if(roomType == null){      
             throw new RoomTypeNotFoundException("Room Type Not Found");
         }
         RoomRate newNormalRate = new RoomRate(ratePerNight, rateName, RateTypeEnum.NORMAL, startDate, endDate);
@@ -303,6 +319,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         newPromotionRate.setRoomType(roomType);
     }
     
+
     @Override
     public Room retrieveRoomByRoomNumber(String roomNumber) throws RoomNotFoundException {
         
@@ -321,16 +338,15 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return q.getResultList();
     }
     
-
-    
     @Override
     public String viewRoomDetails(Room room){
         return "Room Number " + room.getRoomNumber() + ", " + room.getRoomType().getTypeName() + ", " + room.getStatus();
     }
     
+ 
     @Override
     public List<ExceptionReport> getListOfExceptionReportsByDate(Date date){
-        Query q = em.createQuery("SELECT e FROM ExceptionReport e WHERE e.exceptionDate = :date");
+        Query q = em.createQuery("SELECT e FROM ExceptionReport e WHERE e.exceptionReportDate = :date");
         q.setParameter("date", date);
         
         return q.getResultList();
@@ -342,6 +358,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return q.getResultList();
     }
     
+ 
     @Override
     public Boolean deleteRoomRate(Long roomRateId) throws RoomRateNotFoundException, LastAvailableRateException{
         RoomRate rate = em.find(RoomRate.class, roomRateId);
@@ -381,6 +398,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         }
     }
     
+
     @Override
     public void updateRoomRate(Long roomRateId, BigDecimal ratePerNight, Date startDate, Date endDate, StatusEnum status) throws RoomRateNotFoundException{
         RoomRate roomRate = em.find(RoomRate.class, roomRateId);
@@ -394,7 +412,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         
     }
     
-    @Override
+
     public Integer getNumberOfRoomsAvailable(RoomType type, Date date) throws RoomTypeUnavailableException{
         Query query = em.createQuery("SELECT a FROM RoomAvailability a WHERE a.roomType = :type AND a.availabiltyRecordDate =:date");
         query.setParameter("type", type);
@@ -410,7 +428,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         
     }
     
-    @Override
+    
     public BigDecimal getRatePerNight(RoomType roomType, Date date) throws RoomRateNotFoundException{
         List<RoomRate> normalList, peakList, promoList;
         normalList = getValidRateList(roomType, date, RateTypeEnum.NORMAL);
@@ -428,7 +446,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         }
     }
     
-    @Override
+    
     public List<RoomRate> getValidRateList(RoomType roomType, Date date, RateTypeEnum rateType){
         //Query q = em.createQuery("SELECT r FROM RoomRateEntity r WHERE r.startDate <= :date AND (r.endDate >= :date OR r.endDate IS NULL)"
         //                        + "AND r.status = :status AND r.rateType = :rateType AND r.roomType = :roomType");
@@ -443,7 +461,8 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return q.getResultList();
     }
     
-    @Override
+    
+    
     public BigDecimal getPrevailingRatePerNight(List<RoomRate> rateList){
         BigDecimal prevailingRate = rateList.get(0).getRatePerNight();
         
@@ -453,7 +472,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return prevailingRate;
     }
     
-    @Override
+    
     public BigDecimal getPublishedRatePerNight(RoomType roomType, Date date) throws RoomRateNotFoundException{
         
         List<RoomRate> publishedRates = getValidRateList(roomType, date, RateTypeEnum.PUBLISHED);

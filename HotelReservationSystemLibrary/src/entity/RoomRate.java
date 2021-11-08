@@ -64,7 +64,6 @@ public class RoomRate implements Serializable {
     private Date startDate;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(nullable = false)
     private Date endDate;
     
     @ManyToOne

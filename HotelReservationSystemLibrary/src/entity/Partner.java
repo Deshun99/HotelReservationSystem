@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 /**
@@ -21,6 +22,20 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Partner implements Serializable {
+
+    /**
+     * @return the emailAddress
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * @param emailAddress the emailAddress to set
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,10 +49,14 @@ public class Partner implements Serializable {
     @Column(unique = true, nullable = false)
     @Size(min = 5, max = 32)
     private String username;
-    
+       
     @Size(min = 5, max = 32)
     @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false, unique = true)
+    @Email(message = "Please enter a valid email address")
+    private String emailAddress;
     
     @OneToMany(mappedBy = "reservedByPartner")
     private ArrayList<ReservationRecord> reservationRecords;
@@ -103,10 +122,11 @@ public class Partner implements Serializable {
         reservationRecords = new ArrayList<>();
     }
 
-    public Partner(String partnerName, String username, String password) {
+    public Partner(String partnerName, String username, String password, String emailAddress) {
         this.partnerName = partnerName;
         this.username = username;
         this.password = password;
+        this.emailAddress = emailAddress;
     }
     
     
@@ -142,7 +162,7 @@ public class Partner implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Partner[ id=" + partnerId + " ]";
+        return "Partner Id: " + partnerId + "\nParter Name: " + partnerName + "\n";
     }
     
 }

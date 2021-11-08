@@ -9,6 +9,7 @@ import entity.Employee;
 import java.util.List;
 import javax.ejb.Remote;
 import util.exception.EmployeeNotFoundException;
+import util.exception.InvalidLoginCredentialException;
 
 /**
  *
@@ -28,5 +29,7 @@ public interface EmployeeEntitySessionBeanRemote {
     public void createNewGuestRelationsOfficer(String name, String username, String password);
     
     public List<Employee> retrieveAllEmployees();
+    
+    public Employee login(String username, String password) throws InvalidLoginCredentialException;
     
 }

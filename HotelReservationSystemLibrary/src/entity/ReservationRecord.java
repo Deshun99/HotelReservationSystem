@@ -275,7 +275,11 @@ public class ReservationRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.ReservationRecord[ id=" + reservationRecordId + " ]";
+        return "Reservation ID: " + getReservationRecordId() + "\n" +
+                "Start Date: " + getStartDateAsString() + "\n" +
+                "End Date: " + getEndDateAsString() + "\n" +
+                "Room Type Reserved: " + getRoomType().getTypeName() + "\n" +
+                "Bill: $" + getBill();
     }
     
     public String getEndDateAsString() {

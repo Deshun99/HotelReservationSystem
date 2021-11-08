@@ -43,6 +43,13 @@ public class ExceptionReport implements Serializable {
         this.reservation = reservation;
     }
 
+    public ExceptionReport() {
+    }
+    
+    
+    
+    
+
 
     /**
      * @return the reservation

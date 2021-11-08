@@ -31,6 +31,6 @@ public interface PartnerEntitySessionBeanLocal {
 
     public List<Partner> retrieveAllPartners();
 
-    public void createNewPartner(String partnerName, String username, String password);
+    public void createNewPartner(String partnerName, String username, String password, String emailAddress);
     
 }

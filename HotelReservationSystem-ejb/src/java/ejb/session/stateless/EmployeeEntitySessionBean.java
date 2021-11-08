@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import util.enumeration.EmployeeAccessRightsEnum;
 import util.exception.EmployeeNotFoundException;
+import util.exception.InvalidLoginCredentialException;
 
 /**
  *
@@ -75,6 +76,22 @@ public class EmployeeEntitySessionBean implements EmployeeEntitySessionBeanRemot
         }
     }
     
+    @Override
+    public Employee login(String username, String password) throws InvalidLoginCredentialException{
+        try{
+            Employee emp = retrieveEmployeeByUsername(username);
+            if(emp.getPassword().equals(password)){
+                emp.getEmployeeId();
+                emp.getAccessRights();
+                return emp;
+            }else{
+                throw new InvalidLoginCredentialException("Invalid Login Credentials");
+            }
+            
+        }catch(EmployeeNotFoundException ex){
+            throw new InvalidLoginCredentialException("Invalid Login Credentials");
+        }
+    }
     
     @Override
     public List<Employee> retrieveAllEmployees(){

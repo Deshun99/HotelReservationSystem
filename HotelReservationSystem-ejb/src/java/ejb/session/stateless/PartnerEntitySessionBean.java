@@ -34,8 +34,8 @@ public class PartnerEntitySessionBean implements PartnerEntitySessionBeanRemote,
     }
 
     @Override
-    public void createNewPartner(String partnerName, String username, String password){
-        Partner partner = new Partner(partnerName, username, password);
+    public void createNewPartner(String partnerName, String username, String password, String emailAddress){
+        Partner partner = new Partner(partnerName, username, password, emailAddress);
         em.persist(partner);
         
     }
@@ -69,7 +69,7 @@ public class PartnerEntitySessionBean implements PartnerEntitySessionBeanRemote,
     
 
     private Partner retrievePartnerByUsername(String username) throws PartnerNotFoundException{
-        Query q = em.createQuery("SELECT p FROM PartnerEntity p WHERE p.username = :username");
+        Query q = em.createQuery("SELECT p FROM Partner p WHERE p.username = :username");
         q.setParameter("username", username);
         
         try{

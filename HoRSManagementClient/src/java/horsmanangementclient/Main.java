@@ -5,6 +5,8 @@
  */
 package horsmanangementclient;
 
+import ejb.session.singleton.SystemHelperRemote;
+import ejb.session.stateful.RoomReservationControllerRemote;
 import ejb.session.stateless.EmployeeEntitySessionBeanRemote;
 import ejb.session.stateless.PartnerEntitySessionBeanRemote;
 import ejb.session.stateless.RoomEntitySessionBeanRemote;
@@ -18,6 +20,12 @@ import javax.ejb.EJB;
  */
 public class Main {
 
+    @EJB(name = "SystemHelperRemote")
+    private static SystemHelperRemote systemHelperRemote;
+
+    @EJB(name = "RoomReservationControllerRemote")
+    private static RoomReservationControllerRemote roomReservationControllerRemote;
+
     @EJB(name = "RoomEntitySessionBeanRemote")
     private static RoomEntitySessionBeanRemote roomEntitySessionBeanRemote;
 
@@ -29,17 +37,21 @@ public class Main {
     
     
     
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
         
-        List<Employee> employees = employeeEntitySessionBeanRemote.retrieveAllEmployees();
+        MainApp mainApp = new MainApp(roomEntitySessionBeanRemote, employeeEntitySessionBeanRemote, partnerEntitySessionBeanRemote, roomReservationControllerRemote,  systemHelperRemote);
+        mainApp.runApp();
         
-        for(Employee employee: employees) {
-            System.out.println("Employee: employeeId=" + employee.getEmployeeId() + "; employeeName=" + employee.getEmployeeName());
-        }
+//        List<Employee> employees = employeeEntitySessionBeanRemote.retrieveAllEmployees();
+//        
+//        for(Employee employee: employees) {
+//            System.out.println("Employee: employeeId=" + employee.getEmployeeId() + "; employeeName=" + employee.getEmployeeName());
+//        }
     }
     
 }

@@ -12,7 +12,7 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.HoRSManangementClient.j2ee-module-car}</file>
+                    <file>${reference.HoRSManagementClient.j2ee-module-car}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
@@ -23,7 +23,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>HoRSManangementClient</foreign-project>
+                <foreign-project>HoRSManagementClient</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>

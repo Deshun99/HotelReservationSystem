@@ -5,6 +5,7 @@
  */
 package ejb.session.stateful;
 
+
 import ejb.session.stateless.GuestEntitySessionBeanLocal;
 import ejb.session.stateless.ReservationEntitySessionBeanLocal;
 import entity.Guest;
@@ -131,7 +132,7 @@ public class RoomReservationController implements RoomReservationControllerLocal
         //currently before 2pm standard check in time
         if(now.before(cal.getTime())){
             if(!checkValidEarlyCheckIn(reservation)){
-                throw new EarlyCheckInUnavailableException("Early check in unavailable, please check in after 2pm");
+                throw new EarlyCheckInUnavailableException("Early check in unavailable, please check in after 2am");
             }
         }
 

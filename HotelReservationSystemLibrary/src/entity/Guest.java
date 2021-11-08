@@ -59,8 +59,6 @@ public class Guest implements Serializable {
     public void setReservationRecords(ArrayList<ReservationRecord> reservationRecords) {
         this.reservationRecords = reservationRecords;
     }
-    
-    
 
     public Guest() {
     }
@@ -159,7 +157,7 @@ public class Guest implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Guest[ id=" + guestId + " ]";
+        return "Guest's Name: " + this.guestName + "\nGuest's Email Address: " + this.emailAddress + "\n";
     }
     
 }
