@@ -9,6 +9,7 @@ import ejb.session.stateful.RoomReservationControllerRemote;
 import ejb.session.stateless.GuestEntitySessionBeanRemote;
 import javax.ejb.EJB;
 
+
 /**
  *
  * @author wong-

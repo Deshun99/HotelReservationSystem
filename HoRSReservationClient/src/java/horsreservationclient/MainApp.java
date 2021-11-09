@@ -9,11 +9,13 @@ import ejb.session.stateful.RoomReservationControllerRemote;
 import ejb.session.stateless.GuestEntitySessionBeanRemote;
 import entity.Guest;
 import entity.ReservationRecord;
+import entity.Room;
 import entity.RoomType;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -44,7 +46,7 @@ public class MainApp {
         this.roomReservationControllerRemote = roomReservationController;
     }
     
-    public void runApp(){
+    public void runApp() {
         
         Scanner sc = new Scanner(System.in);
         
@@ -103,7 +105,7 @@ public class MainApp {
         System.out.println("\n****New Guest Created!****\n");
     }
     
-    private void guestLogin(){
+    private void guestLogin() {
         Scanner sc = new Scanner(System.in);
         System.out.println("****Guest Login****");
         System.out.print("Enter username> ");
@@ -121,7 +123,7 @@ public class MainApp {
         }
     }
     
-    private void guestMenu(){
+    private void guestMenu() {
         
         Scanner sc = new Scanner(System.in);
         
@@ -160,7 +162,7 @@ public class MainApp {
         }
     }
     
-    private ReservationTicket searchHotelRoom(){
+    private ReservationTicket searchHotelRoom() {
         
         Scanner sc = new Scanner(System.in);
         
@@ -200,7 +202,7 @@ public class MainApp {
                 String resp = sc.nextLine().trim();
                 switch(resp){
                     case "Y":
-                        reserveHotelRoom(ticket);
+                        reserveHotelRoom(ticket, startDate);
                         return ticket;
                     case "N":
                         return null;
@@ -217,7 +219,7 @@ public class MainApp {
         }
     }
     
-    private void reserveHotelRoom(ReservationTicket ticket){
+    private void reserveHotelRoom(ReservationTicket ticket, Date startDate) {
         
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < ticket.getAvailableRoomTypes().size(); i++){
@@ -234,8 +236,20 @@ public class MainApp {
             }
         }
         
-        roomReservationControllerRemote.reserveRoom(ticket);
+        ArrayList<ReservationRecord> reservations = roomReservationControllerRemote.reserveRoom(ticket);
         System.out.println("Reservation Successful.");
+        Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        Date now = cal.getTime();
+        cal.set(Calendar.HOUR, 2);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        System.out.println(currentDate);
+        System.out.println(startDate);
+        if(now.after(cal.getTime()) && startDate.before(currentDate)) {
+            System.out.println("Yo");
+            roomReservationControllerRemote.assignWalkInRoom(reservations);
+        }
     }
     
     private void viewReservationDetail(){
@@ -264,12 +278,14 @@ public class MainApp {
         }
         
         for(ReservationRecord r: reservations){
-            System.out.println( "Reservation ID: " + r.getReservationRecordId().toString() + "\n" +
-                                "Start Date: " + r.getStartDateAsString() + "\n" +
-                                "End Date: " + r.getEndDateAsString() + "\n" +
-                                "Room Type Reserved: " + r.getRoomType().getTypeName() + "\n" +
-                                "Bill: $" + r.getBill());
-            System.out.println();
+                System.out.println("Reservation ID: " + r.getReservationRecordId().toString() + "\n"
+                        + "Start Date: " + r.getStartDateAsString() + "\n"
+                        + "End Date: " + r.getEndDateAsString() + "\n"
+                        + "Room Type Reserved: " + r.getRoomType().getTypeName() + "\n"
+                        + "Bill: $" + r.getBill() + "\n");
+                System.out.println();
+            
+
         }
         System.out.println("****End of Reservation Records****\n");
         

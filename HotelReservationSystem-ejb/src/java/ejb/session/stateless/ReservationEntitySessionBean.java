@@ -55,11 +55,20 @@ public class ReservationEntitySessionBean implements ReservationEntitySessionBea
         }else if(!reservationRecord.getReservedByGuest().getGuestId().equals(guestId)){
             throw new EntityMismatchException("Guest Id provided does not match Guest Id in reservation record");
         }else{
-            String details = "Reservation Id: " + reservationRecord.getReservationRecordId() + "\n" +
-                             "Start Date: " + reservationRecord.getStartDateAsString() + "\n" +
-                             "End Date: " + reservationRecord.getEndDateAsString() + "\n" +
-                             "Bill: $" + reservationRecord.getBill() + "\n";
-            
+            String details;
+            if (reservationRecord.getAssignedRoom() == null) {
+                details = "Reservation Id: " + reservationRecord.getReservationRecordId() + "\n"
+                        + "Start Date: " + reservationRecord.getStartDateAsString() + "\n"
+                        + "End Date: " + reservationRecord.getEndDateAsString() + "\n"
+                        + "Bill: $" + reservationRecord.getBill() + "\n"
+                        + "Assigned Room: Room not assigned yet" + "\n";
+            } else {
+                details = "Reservation Id: " + reservationRecord.getReservationRecordId() + "\n"
+                        + "Start Date: " + reservationRecord.getStartDateAsString() + "\n"
+                        + "End Date: " + reservationRecord.getEndDateAsString() + "\n"
+                        + "Bill: $" + reservationRecord.getBill() + "\n"
+                        + "Assigned Room: " + reservationRecord.getAssignedRoom().getRoomNumber() + "\n";
+            }
             return details;
         }
     }

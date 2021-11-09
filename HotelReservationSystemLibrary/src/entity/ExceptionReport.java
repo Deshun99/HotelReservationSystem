@@ -38,7 +38,7 @@ public class ExceptionReport implements Serializable {
     private ReservationRecord reservation;
     
     public ExceptionReport(Date exceptionDate, String errorReport, ReservationRecord reservation) {
-        this.exceptionReportDate = exceptionReportDate;
+        this.exceptionReportDate = exceptionDate;
         this.errorReport = errorReport;
         this.reservation = reservation;
     }

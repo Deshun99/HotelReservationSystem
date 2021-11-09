@@ -5,6 +5,7 @@
  */
 package ejb.session.stateful;
 
+import entity.Partner;
 import entity.ReservationRecord;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,4 +47,6 @@ public interface RoomReservationControllerRemote {
     public String checkOutRoom(String roomNumber) throws UnoccupiedRoomException, ReservationRecordNotFoundException;
 
     public void assignWalkInRoom(ArrayList<ReservationRecord> reservations);
+    
+    public ArrayList<ReservationRecord> partnerReserveRoom(ReservationTicket ticket, Partner partner);
 }

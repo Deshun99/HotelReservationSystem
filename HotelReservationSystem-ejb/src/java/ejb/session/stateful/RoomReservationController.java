@@ -8,9 +8,13 @@ package ejb.session.stateful;
 
 import ejb.session.stateless.GuestEntitySessionBeanLocal;
 import ejb.session.stateless.ReservationEntitySessionBeanLocal;
+import entity.ExceptionReport;
 import entity.Guest;
+import entity.Partner;
 import entity.ReservationRecord;
 import entity.Room;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,6 +99,11 @@ public class RoomReservationController implements RoomReservationControllerLocal
         }
     }
     
+    @Override 
+    public ArrayList<ReservationRecord> partnerReserveRoom(ReservationTicket ticket, Partner partner) {
+        return reservationEntitySessionBeanLocal.partnerReserveRooms(ticket, partner, partner.getEmailAddress());
+    }
+    
     @Override
     public List<ReservationRecord> getReservationListByEmail(String email){
         Calendar cal = Calendar.getInstance();
@@ -114,10 +123,15 @@ public class RoomReservationController implements RoomReservationControllerLocal
     
     @Override
     public String checkInRoom(Long reservationId) throws EarlyCheckInUnavailableException, RoomNotAssignedException, RoomUpgradeException{
+        Date current = new Date();
 
         ReservationRecord reservation = em.find(ReservationRecord.class, reservationId);
         //no room allocated
         if(reservation.getAssignedRoom() == null){
+            String errorReport = "Room was not allocated. Please check Room Allocation Exception Report.";
+            ExceptionReport entry = new ExceptionReport(current ,errorReport, reservation);
+            em.persist(entry);
+            em.flush();
             throw new RoomNotAssignedException("Room was not allocated. Please check Room Allocation Exception Report.");
         }
         
@@ -140,6 +154,10 @@ public class RoomReservationController implements RoomReservationControllerLocal
         if(!room.getRoomType().equals(reservation.getRoomType())){
             reservation.setCheckInTime(now);
             room.setOccupancy(IsOccupiedEnum.OCCUPIED);
+            String errorReport = reservation.getRoomType().getTypeName() + " is not available, upgrading to " + room.getRoomType().getTypeName();
+            ExceptionReport entry = new ExceptionReport(current ,errorReport, reservation);
+            em.persist(entry);
+            em.flush();
             throw new RoomUpgradeException("Assigned to Room " + room.getRoomNumber() + " - Room upgraded to " + room.getRoomType().getTypeName());
         }
                   

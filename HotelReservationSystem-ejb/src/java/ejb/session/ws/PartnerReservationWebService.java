@@ -5,6 +5,7 @@
  */
 package ejb.session.ws;
 
+import ejb.session.stateful.RoomReservationControllerLocal;
 import ejb.session.stateless.PartnerEntitySessionBeanLocal;
 import ejb.session.stateless.ReservationEntitySessionBeanLocal;
 import entity.Partner;
@@ -31,11 +32,16 @@ import util.objects.ReservationTicketWrapper;
 @LocalBean
 public class PartnerReservationWebService {
 
+    @EJB(name = "RoomReservationControllerLocal")
+    private RoomReservationControllerLocal roomReservationControllerLocal;
+
     @EJB(name = "PartnerEntitySessionBeanLocal")
     private PartnerEntitySessionBeanLocal partnerEntitySessionBeanLocal;
 
     @EJB(name = "ReservationEntitySessionBeanLocal")
     private ReservationEntitySessionBeanLocal reservationEntitySessionBeanLocal;
+    
+    
 
     public Partner partnerLogin(String username, String password) throws InvalidLoginCredentialException {
         Long partnerId = partnerEntitySessionBeanLocal.partnerLogin(username, password);
@@ -65,6 +71,6 @@ public class PartnerReservationWebService {
         Partner partner = partnerEntitySessionBeanLocal.retrievePartnerById(partnerId);
         //ReservationTicket ticket = reservationEntitySessionBeanLocal.unwrapTicketWrapper(ticketWrapper);
         
-        return reservationEntitySessionBeanLocal.partnerReserveRooms(ticket, partner, emailAddress);
+        return roomReservationControllerLocal.partnerReserveRoom(ticket, partner);
     }
 }

@@ -102,7 +102,7 @@ public class MainApp {
             Date endDate = df.parse(sc.nextLine().trim());
             
             if(startDate.after(endDate) || startDate.equals(endDate)){
-                System.err.println("\nCheck in date must be after checkout date.\n");
+                System.err.println("\nCheck in date must be before checkout date.\n");
                 return null;
             }
             
