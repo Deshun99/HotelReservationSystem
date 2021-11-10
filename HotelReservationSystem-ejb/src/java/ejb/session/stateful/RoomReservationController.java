@@ -139,7 +139,7 @@ public class RoomReservationController implements RoomReservationControllerLocal
         
         Calendar cal = Calendar.getInstance();
         Date now = cal.getTime();
-        cal.set(Calendar.HOUR, 14);
+        cal.set(Calendar.HOUR_OF_DAY, 14);
         cal.set(Calendar.MINUTE,0);
         cal.set(Calendar.SECOND,0);
         
