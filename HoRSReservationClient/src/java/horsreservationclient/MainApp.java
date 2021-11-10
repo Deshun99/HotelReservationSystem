@@ -238,16 +238,24 @@ public class MainApp {
         
         ArrayList<ReservationRecord> reservations = roomReservationControllerRemote.reserveRoom(ticket);
         System.out.println("Reservation Successful.");
-        Date currentDate = new Date();
+
         Calendar cal = Calendar.getInstance();
         Date now = cal.getTime();
-        cal.set(Calendar.HOUR, 2);
+        cal.set(Calendar.HOUR_OF_DAY, 2);
         cal.set(Calendar.MINUTE,0);
         cal.set(Calendar.SECOND,0);
-        System.out.println(currentDate);
+
         System.out.println(startDate);
-        if(now.after(cal.getTime()) && startDate.before(currentDate)) {
-            System.out.println("Yo");
+        
+        Calendar reference = Calendar.getInstance();
+        int day = reference.get(Calendar.DAY_OF_MONTH);
+        int month = reference.get(Calendar.MONTH);
+        
+        Calendar start = Calendar.getInstance();
+        start.setTime(startDate);
+
+        if(reference.get(Calendar.HOUR_OF_DAY) >= cal.get(Calendar.HOUR_OF_DAY) && day == start.get(Calendar.DAY_OF_MONTH) && month == start.get(Calendar.MONTH)) {
+            
             roomReservationControllerRemote.assignWalkInRoom(reservations);
         }
     }
