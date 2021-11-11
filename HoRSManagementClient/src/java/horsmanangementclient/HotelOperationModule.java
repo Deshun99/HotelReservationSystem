@@ -504,6 +504,8 @@ public class HotelOperationModule {
         if(roomTypeIndex < 0 || roomTypeIndex >= roomTypesList.size()){
             System.err.println("Invalid Room Type.");
             return;
+            
+            
         }else{
             roomType = roomTypesList.get(roomTypeIndex);
         }
@@ -512,8 +514,8 @@ public class HotelOperationModule {
         String rateName = sc.nextLine().trim();
         
         System.out.print("Enter rate per night> $");
-        BigDecimal ratePerNight = new BigDecimal(sc.nextDouble());
-        
+        BigDecimal ratePerNight = sc.nextBigDecimal();
+        sc.nextLine();
         System.out.print("Enter Start Date (dd/mm/yyyy)> ");
         Date startDate;
         try {
