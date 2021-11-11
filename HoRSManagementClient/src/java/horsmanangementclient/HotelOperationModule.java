@@ -140,7 +140,7 @@ public class HotelOperationModule {
         System.out.print("Enter types of bed available in " + newTypeName + "> ");
         String newBeds = sc.nextLine().trim();
         
-        System.out.print("Enter capacity of> " + newTypeName);
+        System.out.print("Enter capacity of " + newTypeName + "> ");
         Integer capacity = null;
         try {
             capacity = sc.nextInt();
@@ -221,6 +221,7 @@ public class HotelOperationModule {
                 System.out.println("(2) Delete Room Type");
                 System.out.println("(3) Return");
                 System.out.print("Select an option> ");
+                sc.nextLine();
                 String response = sc.nextLine().trim();
             
                 System.out.println();
