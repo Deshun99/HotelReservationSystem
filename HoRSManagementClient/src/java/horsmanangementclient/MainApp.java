@@ -108,7 +108,7 @@ public class MainApp {
             case OPERATIONS:
                 while(true){
                     System.out.println("\n****Welcome to the Hotel Management Client****");
-                    System.out.println("(1)Hotel Operation (Operation Manager) Module \n(2)Logout");
+                    System.out.println("(1)Hotel Operation Module(Operation Manager) \n(2)Logout");
                     System.out.print("Select an option> ");
                     response = sc.nextLine().trim();
                     
