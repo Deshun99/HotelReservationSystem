@@ -105,7 +105,7 @@ public class FrontOfficeModule {
             }
             System.out.println("\n****End of list****\n");
                 while(true){
-                    System.out.print("Reserve a room? (Y/N)");
+                    System.out.print("Reserve a room? (Y/N)> ");
                     String response = sc.nextLine().trim();
                     System.out.println();
                     switch(response){
@@ -128,7 +128,7 @@ public class FrontOfficeModule {
         
     private void reserveHotelRoom(ReservationTicket ticket) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter guest email address");
+        System.out.print("Enter guest email address > ");
         String email = sc.nextLine().trim();
         try{
             roomReservationControllerRemote.setGuestEmail(email);
@@ -139,7 +139,7 @@ public class FrontOfficeModule {
         
         for(int i = 0; i < ticket.getAvailableRoomTypes().size(); i++){
             RoomType type = ticket.getAvailableRoomTypes().get(i);
-            System.out.println("Enter number of " + type.getTypeName() + " to reserve:");
+            System.out.println("Enter number of " + type.getTypeName() + " to reserve: ");
             int num = sc.nextInt();
             if(num < 0 || num > ticket.getRespectiveNumberOfRoomsRemaining().get(i)){
                 ticket.getRespectiveNumberReserved().add(0);
@@ -153,9 +153,15 @@ public class FrontOfficeModule {
         ArrayList<ReservationRecord> reservations = roomReservationControllerRemote.reserveRoom(ticket);
         System.out.println("Reservation Successful.");
         roomReservationControllerRemote.assignWalkInRoom(reservations);
+        System.out.println("****Checking In****");
+        System.out.println("===================");
         for(ReservationRecord r : reservations){
+            System.out.println("Reservation ID: " + r.getReservationRecordId() + "\n" +
+                                        r.getRoomType().getTypeName());
             checkInRoom(r.getReservationRecordId());
+            System.out.println("===================");
         }
+        System.out.println("****End of Check In****");
     }
     
     

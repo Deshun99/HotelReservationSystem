@@ -68,7 +68,7 @@ public interface RoomEntitySessionBeanRemote {
 
     public void updateRoom(String roomNumber, String roomType, StatusEnum status) throws RoomNotFoundException, RoomTypeNotFoundException;
 
-    public void updateRoomType(String typeName, String newDescription, String newBedType, Integer newCapacity, String newAmenities) throws RoomTypeNotFoundException;
+    public void updateRoomType(String typeName, String newDescription, String newBedType, Integer newCapacity, String newAmenities, String newName) throws RoomTypeNotFoundException;
 
     public Boolean deleteRoom(String roomNumber) throws RoomNotFoundException;
 

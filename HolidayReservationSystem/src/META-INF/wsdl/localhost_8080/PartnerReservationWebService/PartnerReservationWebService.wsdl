@@ -4,26 +4,11 @@
 <xsd:import namespace="http://ws.session.ejb/" schemaLocation="http://localhost:8080/PartnerReservationWebService/PartnerReservationWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="partnerLogin">
-<part name="parameters" element="tns:partnerLogin"/>
+<message name="partnerReserveRooms">
+<part name="parameters" element="tns:partnerReserveRooms"/>
 </message>
-<message name="partnerLoginResponse">
-<part name="parameters" element="tns:partnerLoginResponse"/>
-</message>
-<message name="InvalidLoginCredentialException">
-<part name="fault" element="tns:InvalidLoginCredentialException"/>
-</message>
-<message name="searchRoom">
-<part name="parameters" element="tns:searchRoom"/>
-</message>
-<message name="searchRoomResponse">
-<part name="parameters" element="tns:searchRoomResponse"/>
-</message>
-<message name="unwrapRoomTicket">
-<part name="parameters" element="tns:unwrapRoomTicket"/>
-</message>
-<message name="unwrapRoomTicketResponse">
-<part name="parameters" element="tns:unwrapRoomTicketResponse"/>
+<message name="partnerReserveRoomsResponse">
+<part name="parameters" element="tns:partnerReserveRoomsResponse"/>
 </message>
 <message name="viewAllPartnerReservation">
 <part name="parameters" element="tns:viewAllPartnerReservation"/>
@@ -43,25 +28,31 @@
 <message name="ReservationRecordNotFoundException">
 <part name="fault" element="tns:ReservationRecordNotFoundException"/>
 </message>
-<message name="partnerReserveRooms">
-<part name="parameters" element="tns:partnerReserveRooms"/>
+<message name="searchRoom">
+<part name="parameters" element="tns:searchRoom"/>
 </message>
-<message name="partnerReserveRoomsResponse">
-<part name="parameters" element="tns:partnerReserveRoomsResponse"/>
+<message name="searchRoomResponse">
+<part name="parameters" element="tns:searchRoomResponse"/>
+</message>
+<message name="unwrapRoomTicket">
+<part name="parameters" element="tns:unwrapRoomTicket"/>
+</message>
+<message name="unwrapRoomTicketResponse">
+<part name="parameters" element="tns:unwrapRoomTicketResponse"/>
+</message>
+<message name="partnerLogin">
+<part name="parameters" element="tns:partnerLogin"/>
+</message>
+<message name="partnerLoginResponse">
+<part name="parameters" element="tns:partnerLoginResponse"/>
+</message>
+<message name="InvalidLoginCredentialException">
+<part name="fault" element="tns:InvalidLoginCredentialException"/>
 </message>
 <portType name="PartnerReservationWebService">
-<operation name="partnerLogin">
-<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLoginRequest" message="tns:partnerLogin"/>
-<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLoginResponse" message="tns:partnerLoginResponse"/>
-<fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLogin/Fault/InvalidLoginCredentialException"/>
-</operation>
-<operation name="searchRoom">
-<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/searchRoomRequest" message="tns:searchRoom"/>
-<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/searchRoomResponse" message="tns:searchRoomResponse"/>
-</operation>
-<operation name="unwrapRoomTicket">
-<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/unwrapRoomTicketRequest" message="tns:unwrapRoomTicket"/>
-<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/unwrapRoomTicketResponse" message="tns:unwrapRoomTicketResponse"/>
+<operation name="partnerReserveRooms">
+<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerReserveRoomsRequest" message="tns:partnerReserveRooms"/>
+<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerReserveRoomsResponse" message="tns:partnerReserveRoomsResponse"/>
 </operation>
 <operation name="viewAllPartnerReservation">
 <input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/viewAllPartnerReservationRequest" message="tns:viewAllPartnerReservation"/>
@@ -73,35 +64,23 @@
 <fault message="tns:EntityMismatchException" name="EntityMismatchException" wsam:Action="http://ws.session.ejb/PartnerReservationWebService/viewReservationDetails/Fault/EntityMismatchException"/>
 <fault message="tns:ReservationRecordNotFoundException" name="ReservationRecordNotFoundException" wsam:Action="http://ws.session.ejb/PartnerReservationWebService/viewReservationDetails/Fault/ReservationRecordNotFoundException"/>
 </operation>
-<operation name="partnerReserveRooms">
-<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerReserveRoomsRequest" message="tns:partnerReserveRooms"/>
-<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerReserveRoomsResponse" message="tns:partnerReserveRoomsResponse"/>
+<operation name="searchRoom">
+<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/searchRoomRequest" message="tns:searchRoom"/>
+<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/searchRoomResponse" message="tns:searchRoomResponse"/>
+</operation>
+<operation name="unwrapRoomTicket">
+<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/unwrapRoomTicketRequest" message="tns:unwrapRoomTicket"/>
+<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/unwrapRoomTicketResponse" message="tns:unwrapRoomTicketResponse"/>
+</operation>
+<operation name="partnerLogin">
+<input wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLoginRequest" message="tns:partnerLogin"/>
+<output wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLoginResponse" message="tns:partnerLoginResponse"/>
+<fault message="tns:InvalidLoginCredentialException" name="InvalidLoginCredentialException" wsam:Action="http://ws.session.ejb/PartnerReservationWebService/partnerLogin/Fault/InvalidLoginCredentialException"/>
 </operation>
 </portType>
 <binding name="PartnerReservationWebServicePortBinding" type="tns:PartnerReservationWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="partnerLogin">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="InvalidLoginCredentialException">
-<soap:fault name="InvalidLoginCredentialException" use="literal"/>
-</fault>
-</operation>
-<operation name="searchRoom">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="unwrapRoomTicket">
+<operation name="partnerReserveRooms">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -134,7 +113,7 @@
 <soap:fault name="ReservationRecordNotFoundException" use="literal"/>
 </fault>
 </operation>
-<operation name="partnerReserveRooms">
+<operation name="searchRoom">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -142,6 +121,27 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="unwrapRoomTicket">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="partnerLogin">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="InvalidLoginCredentialException">
+<soap:fault name="InvalidLoginCredentialException" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="PartnerReservationWebService">

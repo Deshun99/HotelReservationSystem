@@ -11,6 +11,5 @@ package util.enumeration;
  */
 public enum StatusEnum {
     AVAILABLE,
-    UNAVAILABLE
-    
+    NOT_AVAILABLE
 }

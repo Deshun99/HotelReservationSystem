@@ -106,7 +106,7 @@
 <xs:complexType name="roomAvailability">
 <xs:sequence>
 <xs:element name="availabiltyRecordDate" type="xs:dateTime" minOccurs="0"/>
-<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="roomAvailabilityId" type="xs:long" minOccurs="0"/>
 <xs:element name="roomType" type="tns:roomType" minOccurs="0"/>
 <xs:element name="totalReservations" type="xs:int" minOccurs="0"/>
 </xs:sequence>

@@ -145,7 +145,7 @@ public class HotelOperationModule {
         try {
             capacity = sc.nextInt();
         } catch (InputMismatchException e) {
-            System.err.println("Not a valid capacity. Retuning to menu.");
+            System.err.println("Not a valid capacity. Returning to menu.");
             return;
         }
         sc.nextLine();
@@ -179,17 +179,18 @@ public class HotelOperationModule {
         
         Long roomTypeId = roomEntitySessionBeanRemote.createNewRoomType(newTypeName, newDescription, newBeds, capacity, newAmenities, newRank);
         
-        try {
-            System.out.print("Enter Normal Rate per night for " + newTypeName + " $");
-            double normalRate = sc.nextDouble();
-            roomEntitySessionBeanRemote.createNewNormalRate(newTypeName + " Normal Rate", new BigDecimal(normalRate), new Date(), null, roomTypeId);
-            
-            System.out.print("Enter Published Rate per night for " + newTypeName + " $");
-            double publishedRate = sc.nextDouble();            
-            roomEntitySessionBeanRemote.createNewPublishedRate(newTypeName + " Published Rate", new BigDecimal(publishedRate), new Date(), null, roomTypeId);
-        } catch (RoomTypeNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+//        
+//        try {
+//            System.out.print("Enter Normal Rate per night for " + newTypeName + " $");
+//            double normalRate = sc.nextDouble();
+//            roomEntitySessionBeanRemote.createNewNormalRate(newTypeName + " Normal Rate", new BigDecimal(normalRate), new Date(), null, roomTypeId);
+//            
+//            System.out.print("Enter Published Rate per night for " + newTypeName + " $");
+//            double publishedRate = sc.nextDouble();            
+//            roomEntitySessionBeanRemote.createNewPublishedRate(newTypeName + " Published Rate", new BigDecimal(publishedRate), new Date(), null, roomTypeId);
+//        } catch (RoomTypeNotFoundException e) {
+//            System.out.println(e.getMessage());
+//        }
         
         System.out.println("\n" + newTypeName + " created successfully!\n");
     }
@@ -253,6 +254,8 @@ public class HotelOperationModule {
     
     private void updateRoomType(String typeName){
         Scanner sc = new Scanner(System.in);
+        System.out.print("Enter updated name for " + typeName + "> ");
+        String newName = sc.nextLine().trim();
         System.out.print("Enter updated description for " + typeName + "> ");
         String newDescription = sc.nextLine().trim();
         System.out.print("Enter updated amenities for " + typeName + "> ");
@@ -270,7 +273,7 @@ public class HotelOperationModule {
         sc.nextLine();
 
         try{
-            roomEntitySessionBeanRemote.updateRoomType(typeName, newDescription, newBeds, newCap, newAmenities);
+            roomEntitySessionBeanRemote.updateRoomType(typeName, newDescription, newBeds, newCap, newAmenities, newName);
             System.out.println("\n****Room Type Successfully Updated****\n");
         }catch(RoomTypeNotFoundException e){
             System.err.println(e.getMessage());
@@ -372,7 +375,7 @@ public class HotelOperationModule {
             int typeNum =  sc.nextInt();
             sc.nextLine();
             RoomType roomType = roomTypes.get(typeNum);
-            System.out.println("Enter new room status \n(1)AVAILABLE \n(2)DISABLED");
+            System.out.println("Enter new room status \n(1)AVAILABLE \n(2)NOT AVAILABLE");
             StatusEnum status;
             System.out.print("Select an option> ");
             String response = sc.nextLine().trim();
@@ -383,7 +386,7 @@ public class HotelOperationModule {
                     status = StatusEnum.AVAILABLE;
                     break;
                 case "2":
-                    status = StatusEnum.UNAVAILABLE;
+                    status = StatusEnum.NOT_AVAILABLE;
                     break;
                 default:
                     System.err.println("Not an available status");
@@ -632,7 +635,7 @@ public class HotelOperationModule {
             StatusEnum status;
             switch(sc.next()){
                 case "1":
-                    status = StatusEnum.UNAVAILABLE;
+                    status = StatusEnum.NOT_AVAILABLE;
                     break;
                 case "2":
                     status = StatusEnum.AVAILABLE;
@@ -670,8 +673,12 @@ public class HotelOperationModule {
         System.out.println("\n****All Room Rates****");
         List<RoomRate> roomRates = roomEntitySessionBeanRemote.retrieveAllRoomRates();
         int i = 0;
+        
+        
         for(RoomRate r: roomRates){
             System.out.println("(" + i + ")" + r.getRateName());
+            System.out.println("Rate per night: " + r.getRatePerNight());
+            System.out.println("------------------------");
             i++;
         }
         System.out.println("****End of list****\n");

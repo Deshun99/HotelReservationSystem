@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.ExceptionReport;
+import entity.ReservationRecord;
 import entity.Room;
 import entity.RoomAvailability;
 import entity.RoomRate;
@@ -121,10 +122,11 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
     
 
     @Override
-    public void updateRoomType(String typeName, String newDescription, String newBedType, Integer newCapacity, String newAmenities) throws RoomTypeNotFoundException {
+    public void updateRoomType(String typeName, String newDescription, String newBedType, Integer newCapacity, String newAmenities, String newName) throws RoomTypeNotFoundException {
         
         try{
             RoomType thisRoomType = retrieveRoomTypeByTypeName(typeName);
+            thisRoomType.setTypeName(newName);
             thisRoomType.setAmenities(newAmenities);
             thisRoomType.setDescription(newDescription);
             thisRoomType.setBedType(newBedType);
@@ -161,7 +163,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
             em.remove(thisRoomType); 
             return true;
         }else { //Some room of the type are occupied
-            thisRoomType.setStatus(StatusEnum.UNAVAILABLE);
+            thisRoomType.setStatus(StatusEnum.NOT_AVAILABLE);
             return false;
         }        
     }
@@ -237,7 +239,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
                 em.remove(thisRoom);
                 return true;
             }else {
-                thisRoom.setStatus(StatusEnum.UNAVAILABLE);
+                thisRoom.setStatus(StatusEnum.NOT_AVAILABLE);
                 return false;
             }           
         } catch(RoomNotFoundException e) {
@@ -389,7 +391,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         
 
         if(today.after(rate.getStartDate()) && ((rate.getEndDate() == null) || today.before(rate.getEndDate()))){ //rate still valid
-            rate.setStatus(StatusEnum.UNAVAILABLE);
+            rate.setStatus(StatusEnum.NOT_AVAILABLE);
             return false;
         }else{
             rate.getRoomType().getRoomRate().remove(rate);

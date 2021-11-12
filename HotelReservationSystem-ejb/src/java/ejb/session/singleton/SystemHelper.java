@@ -92,9 +92,10 @@ public class SystemHelper implements SystemHelperRemote {
     @Schedule(hour = "2")
     @Override
     public void allocateRoomsDaily(){
-        List<ReservationRecord> reservationsForToday = getAllReservationToday();
+        List<ReservationRecord> reservationsForToday = getAllReservation();
         Calendar cal = Calendar.getInstance();
         Date today = cal.getTime();
+        System.out.println("Hello");
         for(ReservationRecord r : reservationsForToday){
             RoomType type = r.getRoomType();
             ExceptionReport report = new ExceptionReport(today, "", r);
@@ -145,12 +146,11 @@ public class SystemHelper implements SystemHelperRemote {
         return list.get(0);
     }
     
-    private List<ReservationRecord> getAllReservationToday(){
+    private List<ReservationRecord> getAllReservation(){
         Calendar cal = Calendar.getInstance();
         Date today = cal.getTime();
         
-        Query q = em.createQuery("SELECT r FROM ReservationRecord r WHERE r.startDate = :today AND r.assignedRoom IS NULL");
-        q.setParameter("today", today);
+        Query q = em.createQuery("SELECT r FROM ReservationRecord r WHERE r.assignedRoom IS NULL");
         
         return q.getResultList();
     }

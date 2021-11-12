@@ -27,7 +27,7 @@ public class RoomAvailability implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long roomAvailabilityId;
     
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -104,29 +104,29 @@ public class RoomAvailability implements Serializable {
         this.totalReservations = totalReservations;
     }
 
-    public Long getId() {
-        return id;
+    public Long getRoomAvailabilityId() {
+        return roomAvailabilityId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoomAvailabilityId(Long roomAvailabilityId) {
+        this.roomAvailabilityId = roomAvailabilityId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (roomAvailabilityId != null ? roomAvailabilityId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the roomAvailabilityId fields are not set
         if (!(object instanceof RoomAvailability)) {
             return false;
         }
         RoomAvailability other = (RoomAvailability) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.roomAvailabilityId == null && other.roomAvailabilityId != null) || (this.roomAvailabilityId != null && !this.roomAvailabilityId.equals(other.roomAvailabilityId))) {
             return false;
         }
         return true;
@@ -134,7 +134,7 @@ public class RoomAvailability implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.AvailabilityRecord[ id=" + id + " ]";
+        return "entity.AvailabilityRecord[ id=" + roomAvailabilityId + " ]";
     }
     
     public void addOneReservation(){

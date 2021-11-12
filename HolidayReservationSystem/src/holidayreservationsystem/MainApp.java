@@ -153,24 +153,24 @@ public class MainApp {
     
     private void reserveHotelRoom(ReservationTicketWrapper wrapperTicket){
         
-        ReservationTicket ticket = HolidayReservationSystem.unwrapRoomTicket(wrapperTicket);
-     
-        Scanner sc = new Scanner(System.in);
-        for(int i = 0; i < ticket.getAvailableRoomTypes().size(); i++){
-            RoomType type = ticket.getAvailableRoomTypes().get(i);
-            System.out.print("Enter number of " + type.getTypeName() + " to reserve> ");
-            int num = sc.nextInt();
-            sc.nextLine();
-            if(num < 0 || num > ticket.getRespectiveNumberOfRoomsRemaining().get(i)){
-                ticket.getRespectiveNumberReserved().add(0);
-                System.out.println("****Invalid Number, 0 rooms of this type will be reserved****\n");
-            }else{
-                ticket.getRespectiveNumberReserved().add(num);
-                System.out.println("****" + num + " of " + type.getTypeName() + " added to cart****\n");
-            }
-        }
-        
-        HolidayReservationSystem.partnerReserveRooms(ticket, currentPartner.getPartnerId(), currentPartner.getEmailAddress());
+//        ReservationTicket ticket = HolidayReservationSystem.unwrapRoomTicket(wrapperTicket);
+//     
+//        Scanner sc = new Scanner(System.in);
+//        for(int i = 0; i < ticket.getAvailableRoomTypes().size(); i++){
+//            RoomType type = ticket.getAvailableRoomTypes().get(i);
+//            System.out.print("Enter number of " + type.getTypeName() + " to reserve> ");
+//            int num = sc.nextInt();
+//            sc.nextLine();
+//            if(num < 0 || num > ticket.getRespectiveNumberOfRoomsRemaining().get(i)){
+//                ticket.getRespectiveNumberReserved().add(0);
+//                System.out.println("****Invalid Number, 0 rooms of this type will be reserved****\n");
+//            }else{
+//                ticket.getRespectiveNumberReserved().add(num);
+//                System.out.println("****" + num + " of " + type.getTypeName() + " added to cart****\n");
+//            }
+//        }
+//        
+//        HolidayReservationSystem.partnerReserveRooms(ticket, currentPartner.getPartnerId(), currentPartner.getEmailAddress());
         System.out.println("Reservation Successful.");
     }
     

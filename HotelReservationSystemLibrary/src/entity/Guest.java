@@ -33,7 +33,7 @@ public class Guest implements Serializable {
     private String guestName;
     
     @Column(nullable = false, unique = true)
-    @Size(min = 5, max = 32)
+    @Size(min = 3, max = 32)
     private String username;
             
     @Column(nullable = false)
