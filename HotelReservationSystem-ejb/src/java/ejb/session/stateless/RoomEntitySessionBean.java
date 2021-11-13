@@ -450,12 +450,8 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
     
     
     public List<RoomRate> getValidRateList(RoomType roomType, Date date, RateTypeEnum rateType){
-        //Query q = em.createQuery("SELECT r FROM RoomRateEntity r WHERE r.startDate <= :date AND (r.endDate >= :date OR r.endDate IS NULL)"
-        //                        + "AND r.status = :status AND r.rateType = :rateType AND r.roomType = :roomType");
-        
         Query q = em.createQuery("SELECT r FROM RoomRate r WHERE ((:date BETWEEN r.startDate AND r.endDate) OR (:date >= r.startDate AND r.endDate IS NULL)) AND r.status = :status AND r.rateType = :rateType AND r.roomType = :roomType" );
         q.setParameter("date", date, TemporalType.DATE);
-        //q.setParameter("null", (Date) null, TemporalType.DATE);
         q.setParameter("status", StatusEnum.AVAILABLE);
         q.setParameter("rateType", rateType);
         q.setParameter("roomType", roomType);
@@ -485,18 +481,7 @@ public class RoomEntitySessionBean implements RoomEntitySessionBeanRemote, RoomE
         return getPrevailingRatePerNight(publishedRates);
         
     }
-    
-    
-    //Generate a new avail record for all room type every day for today + 365 day
-    /*@Schedule(hour = "0")
-    public void addNewAvailRecordDaily(){
-        Query q = em.createQuery("SELECT r FROM RoomTypeEntity r");
-        List<RoomTypeEntity> roomTypes = q.getResultList();
-        for(RoomTypeEntity r : roomTypes){
-            AvailabilityRecordEntity avail = new AvailabilityRecordEntity(addDays(new Date(),365), r);
-            r.addNewAvailabilityRecord(avail);
-        }
-    }*/
+   
 
     
 }
