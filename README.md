@@ -29,7 +29,10 @@ This project also known as HoRS, consists of 3 parts:
 2. HoRS Reservation Client
 3. Holiday Reservation System
 
-![Alt Text](https://i.imgur.com/a/N7fKf3b)
+![alt text](https://github.com/Deshun99/HotelReservationSystem/blob/master/hors.png)
+
+# UML Diagram 
+![alt text](https://github.com/Deshun99/HotelReservationSystem/blob/master/uml.jpg)
 
 ## Singleton Session Bean 
 ### Data Initialisation [HoRS System]
@@ -50,7 +53,7 @@ This project also known as HoRS, consists of 3 parts:
 -	[X] Assign Walk in Room 
 
 ## Stateless Session Bean 
-### Employee Entity Session Bean [HoRS Management Client]
+### Employee Entity Session Bean 
 - [X] Employee Login
 - [X] Employee Logout
 - [X] Create New System Admin
@@ -99,19 +102,6 @@ This project also known as HoRS, consists of 3 parts:
 -	[X] Retrieve All Room Rates
 -	[X] Delete Room Rate
 -	[X] Update Room Rate
-
-### Flight Reservations Session Bean [Sales Management Module]
-- [X] View Flight Reservations
-- [X] View My Flight Reservations
-- [X] View My Flight Reservation Details
-
-## FRS Reservation Client (for Customers)
-### Customer Session Bean 
-- [X] Register As Customer
-- [X] Customer Login
-- [X] Customer Logout
-
-![Alt Text](https://i.imgur.com/a/ritQPrg)
 
 ## Holiday Reservation System (External Party - Web Services)
 - [X] Partner Login
