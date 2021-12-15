@@ -1,5 +1,10 @@
-# IS2103 Enterprise Systems Server-Side Design and Development (Pair Project 2021)
+# IS2103 Enterprise Systems Server-Side Design and Development
 This pair project is one of NUS School of Computing (Information Systems [IS] major) core IS modules.
+
+## About
+Merlion Hotel is a new hotel located in the central business district of Singapore that is currently under construction. It is scheduled to commence business operation in the first quarter of 2022. As part of its preparation to commence business operation, Merlion Hotel has engaged Kent Ridge Technology (KRT), a global technology consulting and solution development company headquartered in Singapore, to develop a new Hotel Reservation System (HoRS) to support its core business processes. More specifically, the new HoRS will be used by Merlion Hotel to manage its room inventory, price rates, room reservations and guests.
+
+In addition to its own internal use, the HoRS will also be exposed to external partners such as price comparison websites, online travel websites and travel agencies. This will allow Merlion Hotel to sell its room inventory to a wider audience. At this juncture, Merlion Hotel has already inked an agreement with Holiday.com. This would allow users of Holiday.com’s Holiday Reservation System to search for and reserve rooms in Merlion Hotel as part of their holiday packages.
 
 ## General Business Rules
 1. Every entity class has a unique key identifier.
